@@ -70,9 +70,6 @@ def main():
 
 ##  print('akhir program utama')
   # batas program utama
-  global_ph += 1
-  if global_ph > 999:
-    global_ph = 0
 
 def read_voltage(channel):
   buf = list()    
@@ -114,11 +111,11 @@ def giveFood():
 
 def relayOn():
 ##    GPIO.output(relayPIN, GPIO.HIGH) # relay
-    pi.write(relayPIN, 1)
+    pi.write(relayPIN, 0)
 
 def relayOff():
 ##    GPIO.output(relayPIN, GPIO.LOW) # relay
-    pi.write(relayPIN, 0)
+    pi.write(relayPIN, 1)
 
 def exit():
     lcd.lcd_display_string("Good bye        ",1,0)
