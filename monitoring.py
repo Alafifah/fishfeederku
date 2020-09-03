@@ -35,7 +35,11 @@ pi = pigpio.pi()
 pi.set_mode(servoPIN, pigpio.OUTPUT)
 pi.set_mode(relayPIN, pigpio.OUTPUT)
 
-pi.set_servo_pulsewidth(servoPIN, 0)
+pi.set_PWM_frequency(servoPIN, 50)
+
+sudutTuang = 2400
+sudutNormal = 600
+pi.set_servo_pulsewidth(servoPIN, sudutNormal)
 
 global_ph = 0
 lcd = lcd_i2c.lcd()
@@ -99,10 +103,10 @@ def convert2ph(voltage):
 
 def turnServo():
 ##    p.ChangeDutyCycle(5) # servo
-    pi.set_servo_pulsewidth(servoPIN, 600)
+    pi.set_servo_pulsewidth(servoPIN, sudutTuang)
     time.sleep(2)
 ##    p.ChangeDutyCycle(90)
-    pi.set_servo_pulsewidth(servoPIN, 2400)
+    pi.set_servo_pulsewidth(servoPIN, sudutNormal)
 
 def giveFood():
     # dibuat thread agar saat delay 2 detik tidak mempengaruhi proses yang lain
