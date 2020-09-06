@@ -9,6 +9,12 @@ pi.set_servo_pulsewidth(ser, 0)
 
 while True:
     for i in range(500, 2500):
-        print(i)
         pi.set_servo_pulsewidth(ser, i)
-        time.sleep(.01)
+        time.sleep(.005)
+        print(i)
+    print("kanan")
+    for i in range(2500, 500, -1):
+        pi.set_servo_pulsewidth(ser, i)
+        time.sleep(.005)
+        print(i)
+    print("kiri")

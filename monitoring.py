@@ -16,7 +16,7 @@ import lcd_i2c
 # Define GPIO to LCD mapping # Setup 
 # ini disesuaikan
 channel = ADS.P0 # pake ads di channel 0
-servoPIN = 24
+servoPIN = 27
 relayPIN = 22
 # batas
 
@@ -38,7 +38,7 @@ pi.set_mode(relayPIN, pigpio.OUTPUT)
 pi.set_PWM_frequency(servoPIN, 50)
 
 sudutTuang = 2400
-sudutNormal = 600
+sudutNormal = 1500
 pi.set_servo_pulsewidth(servoPIN, sudutNormal)
 
 global_ph = 0
@@ -102,11 +102,11 @@ def convert2ph(voltage):
     return ph
 
 def turnServo():
-##    p.ChangeDutyCycle(5) # servo
-    pi.set_servo_pulsewidth(servoPIN, sudutTuang)
-    time.sleep(2)
-##    p.ChangeDutyCycle(90)
-    pi.set_servo_pulsewidth(servoPIN, sudutNormal)
+    for i in range(sudutNormal, sudutTuang):
+      pi.set_servo_pulsewidth(i)
+    time.sleep(1)
+    for i in range(sudutTuang, sudutNormal, -1):
+      pi.set_servo_pulsewidth(i)
 
 def giveFood():
     # dibuat thread agar saat delay 2 detik tidak mempengaruhi proses yang lain

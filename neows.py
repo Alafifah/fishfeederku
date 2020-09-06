@@ -3,6 +3,7 @@ import threading
 from time import sleep
 import json
 import monitoring
+from urllib.request import urlopen
 
 hwId = "unik"
 hwKey = "pass"
@@ -66,7 +67,19 @@ def to_hardware():
                 print(ex)
                 raise ValueError("exit")
 
+def isInternet():
+    try:
+        response = urlopen('https://google.com', timeout=10)
+        return True
+    except:
+        return False
+
 if __name__ == "__main__":
+    
+    while (isInternet() == False):
+        print('reconnecting')
+        sleep(1)
+    
     try: 
         # websocket.enableTrace(True)
         ws = websocket.WebSocketApp(serverAddress, on_message = on_message, on_close = on_close)
